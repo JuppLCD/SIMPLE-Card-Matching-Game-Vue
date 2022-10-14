@@ -1,4 +1,4 @@
-export interface CardType {
+export interface MemoryCardType {
 	id: number;
 	color: string;
 	isMatch: boolean;

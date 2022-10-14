@@ -1,11 +1,11 @@
 import { ref } from 'vue';
-import { CardType } from './types/Card.interface';
+import { MemoryCardType } from './types/MemoryCard.interface';
 
 export class Game {
 	state = ref(0);
-	allCards = ref<CardType[]>([]);
+	allCards = ref<MemoryCardType[]>([]);
 
-	private selected = ref<null | CardType>(null);
+	private selected = ref<null | MemoryCardType>(null);
 	private values = [
 		'#f0f8ff',
 		'#00ffff',
@@ -19,46 +19,15 @@ export class Game {
 		'#4b0082',
 	];
 	private diifucultPairsNumber = {
-		easy: 2,
+		easy: 3,
 		normal: 6,
 		hard: 8,
 	};
 
 	newGame = (dificult: Dificult) => {
-		const cards: CardType[] = this.pairOfCards(this.diifucultPairsNumber[dificult]);
+		const cards: MemoryCardType[] = this.pairOfCards(this.diifucultPairsNumber[dificult]);
 		this.state.value = 0;
 		this.allCards.value = cards;
-	};
-
-	private createCard = (value: string, id: number) => {
-		return {
-			id,
-			color: value,
-			isMatch: false,
-			isFlipped: false,
-		};
-	};
-
-	private pairOfCards = (numberOfPairs: number) => {
-		const cardValues = this.values.slice(0, numberOfPairs);
-		const peersValues = [...cardValues, ...cardValues];
-		peersValues.sort(() => Math.random() - 0.5);
-
-		const cards = peersValues.map((value, index) => this.createCard(value, index));
-
-		return cards;
-	};
-
-	private isFinish = (): boolean => {
-		return this.allCards.value.every((card) => card.isMatch);
-	};
-
-	private winGame = () => {
-		this.state.value = 1;
-
-		setTimeout(() => {
-			alert('WINN');
-		}, 500);
 	};
 
 	flippedCard = (id: number): void => {
@@ -96,6 +65,37 @@ export class Game {
 		} else {
 			this.selected.value = cardClicked;
 		}
+	};
+
+	private createCard = (value: string, id: number) => {
+		return {
+			id,
+			color: value,
+			isMatch: false,
+			isFlipped: false,
+		};
+	};
+
+	private pairOfCards = (numberOfPairs: number) => {
+		const cardValues = this.values.slice(0, numberOfPairs);
+		const peersValues = [...cardValues, ...cardValues];
+		peersValues.sort(() => Math.random() - 0.5);
+
+		const cards = peersValues.map((value, index) => this.createCard(value, index));
+
+		return cards;
+	};
+
+	private isFinish = (): boolean => {
+		return this.allCards.value.every((card) => card.isMatch);
+	};
+
+	private winGame = () => {
+		this.state.value = 1;
+
+		setTimeout(() => {
+			alert('WINN');
+		}, 500);
 	};
 }
 

@@ -1,5 +1,9 @@
 <template>
-	<button :class="className" v-bind="$attrs">
+	<button
+		class="focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none"
+		:class="[className]"
+		v-bind="$attrs"
+	>
 		<slot />
 	</button>
 </template>
@@ -8,16 +12,15 @@
 import { ButtonHTMLAttributes } from 'vue';
 
 interface ButtonProps extends ButtonHTMLAttributes {
-	bg?: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'white';
+	variant?: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'white';
 	color?: 'white' | 'gray-900';
 }
 
-const { bg, color } = withDefaults(defineProps<ButtonProps>(), {
-	bg: 'blue',
+const { variant, color } = withDefaults(defineProps<ButtonProps>(), {
+	variant: 'blue',
 	color: 'white',
 });
-
-const className = `text-${color} bg-${bg}-700 hover:bg-${bg}-800 focus:ring-4 focus:ring-${bg}-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none`;
+const className = `text-${color} bg-${variant}-700 hover:bg-${variant}-800  focus:ring-${variant}-300 `;
 </script>
 
 <style scoped></style>

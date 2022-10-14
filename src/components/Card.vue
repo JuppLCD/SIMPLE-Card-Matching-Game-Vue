@@ -1,13 +1,17 @@
 <template>
-	<li :class="{ match: card.isMatch, flipped: card.isFlipped }" @click="emits('flippedCard', card.id)">
+	<li
+		class="list-none mt-5 p-5 transition-colors duration-500 ease-linear border-4 border-neutral-900 rounded"
+		:class="{ match: card.isMatch, flipped: card.isFlipped }"
+		@click="emits('flippedCard', card.id)"
+	>
 		<div>CAJA</div>
 	</li>
 </template>
 
 <script setup lang="ts">
-import type { CardType } from '../types/Card.interface';
+import type { MemoryCardType } from '../types/MemoryCard.interface';
 
-const { card } = defineProps<{ card: CardType }>();
+const { card } = defineProps<{ card: MemoryCardType }>();
 
 const emits = defineEmits<{
 	(e: 'flippedCard', id: number): void;
@@ -15,13 +19,6 @@ const emits = defineEmits<{
 </script>
 
 <style scoped>
-li {
-	list-style: none;
-	border: 5px solid black;
-	margin-top: 20px;
-	transition: background-color 1s ease;
-	padding: 20px;
-}
 .match {
 	background-color: v-bind('card.color');
 	border-color: rgb(251, 255, 0);
