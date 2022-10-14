@@ -1,8 +1,5 @@
 <template>
-	<button
-		:class="`text-${color} bg-${bg}-700 hover:bg-${bg}-800 focus:ring-4 focus:ring-${bg}-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none`"
-		v-bind="$attrs"
-	>
+	<button :class="className" v-bind="$attrs">
 		<slot />
 	</button>
 </template>
@@ -19,6 +16,8 @@ const { bg, color } = withDefaults(defineProps<ButtonProps>(), {
 	bg: 'blue',
 	color: 'white',
 });
+
+const className = `text-${color} bg-${bg}-700 hover:bg-${bg}-800 focus:ring-4 focus:ring-${bg}-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none`;
 </script>
 
 <style scoped></style>

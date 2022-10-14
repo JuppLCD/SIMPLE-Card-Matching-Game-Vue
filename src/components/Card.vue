@@ -1,9 +1,5 @@
 <template>
-	<li
-		:class="{ match: card.isMatch, flipped: card.isFlipped }"
-		:style="{ backgroundColor: card.color }"
-		@click="emits('flippedCard', card.id)"
-	>
+	<li :class="{ match: card.isMatch, flipped: card.isFlipped }" @click="emits('flippedCard', card.id)">
 		<div>CAJA</div>
 	</li>
 </template>
@@ -23,11 +19,15 @@ li {
 	list-style: none;
 	border: 5px solid black;
 	margin-top: 20px;
+	transition: background-color 1s ease;
+	padding: 20px;
 }
 .match {
+	background-color: v-bind('card.color');
 	border-color: rgb(251, 255, 0);
 }
 .flipped {
-	border-color: red;
+	background-color: v-bind('card.color');
+	border-color: rgb(255, 163, 88);
 }
 </style>

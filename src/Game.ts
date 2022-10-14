@@ -5,7 +5,7 @@ export class Game {
 	state = ref(0);
 	allCards = ref<CardType[]>([]);
 
-	private selected = ref<null | number>(null);
+	private selected = ref<null | CardType>(null);
 	private values = [
 		'#f0f8ff',
 		'#00ffff',
@@ -19,7 +19,7 @@ export class Game {
 		'#4b0082',
 	];
 	private diifucultPairsNumber = {
-		easy: 3,
+		easy: 2,
 		normal: 6,
 		hard: 8,
 	};
@@ -52,46 +52,50 @@ export class Game {
 	private isFinish = (): boolean => {
 		return this.allCards.value.every((card) => card.isMatch);
 	};
-	private win = () => {
+
+	private winGame = () => {
 		this.state.value = 1;
-		alert('WINN');
+
+		setTimeout(() => {
+			alert('WINN');
+		}, 500);
 	};
 
 	flippedCard = (id: number): void => {
-		const cards = [...this.allCards.value];
+		const cards = this.allCards.value;
 
 		const indexClickedCard = cards.findIndex((card) => card.id === id);
-
-		let cardSelected: CardType | undefined;
-		if (this.selected.value !== null) {
-			const indexSelectedCard = cards.findIndex((card) => card.id === this.selected.value);
-			cardSelected = cards[indexSelectedCard];
-		}
-
 		const cardClicked = cards[indexClickedCard];
+
+		const cardSelected = this.selected.value;
 
 		if (cardClicked.isMatch || cardClicked.isFlipped) return;
 
 		cardClicked.isFlipped = true;
 
-		if (cardSelected !== undefined) {
+		if (cardSelected !== null) {
 			if (cardSelected.color === cardClicked.color) {
+				// They matched
 				cardSelected.isMatch = true;
 				cardClicked.isMatch = true;
+				cardSelected.isFlipped = false;
+				cardClicked.isFlipped = false;
+			} else {
+				// They did not match
+				setTimeout(() => {
+					cardSelected.isFlipped = false;
+					cardClicked.isFlipped = false;
+				}, 1000);
 			}
 
-			cardSelected.isFlipped = false;
-			cardClicked.isFlipped = false;
 			this.selected.value = null;
 
 			if (this.isFinish()) {
-				this.win();
+				this.winGame();
 			}
 		} else {
-			this.selected.value = cardClicked.id;
+			this.selected.value = cardClicked;
 		}
-
-		this.allCards.value = cards;
 	};
 }
 

@@ -23,4 +23,6 @@ const resetGame = () => {
 resetGame();
 </script>
 
-<style scoped></style>
+<style scoped>
+/* @import url('./style.css'); */
+</style>
