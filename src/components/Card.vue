@@ -1,6 +1,6 @@
 <template>
 	<li
-		class="list-none mt-5 p-5 transition-colors duration-500 ease-linear border-4 border-neutral-900 rounded"
+		class="list-none mt-5 p-5 transition-colors duration-500 ease-linear border-4 border-neutral-900 rounded h-32"
 		:class="{ match: card.isMatch, flipped: card.isFlipped }"
 		@click="emits('flippedCard', card.id)"
 	>

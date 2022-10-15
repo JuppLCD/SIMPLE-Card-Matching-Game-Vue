@@ -1,19 +1,9 @@
 <template>
-	<section class="grid gap-4" :class="[className]">
+	<section class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
 		<slot />
 	</section>
 </template>
 
-<script setup lang="ts">
-const { cols } = withDefaults(
-	defineProps<{
-		cols?: string;
-	}>(),
-	{
-		cols: '3',
-	}
-);
-const className = `grid-cols-${cols}`;
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>
