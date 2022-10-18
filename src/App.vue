@@ -3,15 +3,18 @@
 		<h1 class="text-3xl font-bold underline text-center my-3">
 			{{ state === 0 ? 'Play the game' : 'Winnn!!' }}
 		</h1>
-		<label for="">
-			Select the Dificult
-			<select v-model="dificultGame" @change="createNewGame">
-				<option :value="Dificult.EASY">EASY</option>
-				<option :value="Dificult.NORMAL">NORMAL</option>
-				<option :value="Dificult.HARD">HARD</option>
-			</select>
-		</label>
-		<Button type="button" @click="createNewGame" class="block ml-auto" variant="blue">Reset Game</Button>
+
+		<div class="game-options">
+			<label>
+				Select the Dificult
+				<select v-model="dificultGame" @change="createNewGame">
+					<option :value="Dificult.EASY">EASY</option>
+					<option :value="Dificult.NORMAL">NORMAL</option>
+					<option :value="Dificult.HARD">HARD</option>
+				</select>
+			</label>
+			<Button type="button" @click="createNewGame" class="block ml-auto" variant="green">Reset Game</Button>
+		</div>
 
 		<Grid>
 			<Card v-for="card in allCards" :key="card.id" :card="card" @flippedCard="flippedCard" />
@@ -40,4 +43,24 @@ const createNewGame = () => {
 createNewGame();
 </script>
 
-<style scoped></style>
+<style scoped>
+.game-options {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.game-options select {
+	color: #000;
+}
+
+@media (max-width: 400px) {
+	.game-options {
+		flex-direction: column;
+	}
+
+	.game-options button {
+		margin: 20px 0;
+	}
+}
+</style>
